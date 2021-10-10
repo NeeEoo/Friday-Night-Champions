@@ -10,7 +10,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
 /**
-	*DEBUG MODE
+ * DEBUG MODE
  */
 class AnimationDebug extends FlxState
 {
@@ -177,13 +177,13 @@ class AnimationDebug extends FlxState
 		{
 			updateTexts();
 			if (upP)
-				char.animOffsets.get(animList[curAnim])[1] += 1 * multiplier;
+				char.animOffsets.get(animList[curAnim])[1] += multiplier;
 			if (downP)
-				char.animOffsets.get(animList[curAnim])[1] -= 1 * multiplier;
+				char.animOffsets.get(animList[curAnim])[1] -= multiplier;
 			if (leftP)
-				char.animOffsets.get(animList[curAnim])[0] += 1 * multiplier;
+				char.animOffsets.get(animList[curAnim])[0] += multiplier;
 			if (rightP)
-				char.animOffsets.get(animList[curAnim])[0] -= 1 * multiplier;
+				char.animOffsets.get(animList[curAnim])[0] -= multiplier;
 
 			updateTexts();
 			genBoyOffsets(false);

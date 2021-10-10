@@ -21,7 +21,6 @@ class OptionsMenu extends MusicBeatState
 {
 	public static var instance:OptionsMenu;
 
-	var selector:FlxText;
 	var curSelected:Int = 0;
 
 	var options:Array<OptionCategory> = [
@@ -50,7 +49,7 @@ class OptionsMenu extends MusicBeatState
 			new CpuStrums("CPU's strumline lights up when a note hits it."),
 			#end
 		]),
-		
+
 		new OptionCategory("Misc", [
 			#if desktop
 			new FPSOption("Toggle the FPS Counter"),
@@ -63,7 +62,7 @@ class OptionsMenu extends MusicBeatState
 			new Optimization("No backgrounds, no characters, centered notes, no player 2."),
 			new BotPlay("Showcase your charts and mods with autoplay."),
 		])
-		
+
 	];
 
 	public var acceptInput:Bool = true;
@@ -103,7 +102,7 @@ class OptionsMenu extends MusicBeatState
 		versionShit = new FlxText(5, FlxG.height + 40, 0, "Offset (Left, Right, Shift for slow): " + HelperFunctions.truncateFloat(FlxG.save.data.offset,2) + " - Description - " + currentDescription, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		
+
 		blackBorder = new FlxSprite(-30,FlxG.height + 40).makeGraphic((Std.int(versionShit.width + 900)),Std.int(versionShit.height + 600),FlxColor.BLACK);
 		blackBorder.alpha = 0.5;
 
@@ -118,7 +117,7 @@ class OptionsMenu extends MusicBeatState
 	}
 
 	var isCat:Bool = false;
-	
+
 
 	override function update(elapsed:Float)
 	{
@@ -140,9 +139,9 @@ class OptionsMenu extends MusicBeatState
 					grpControls.add(controlLabel);
 					// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 				}
-				
+
 				curSelected = 0;
-				
+
 				changeSelection(curSelected);
 			}
 
@@ -161,23 +160,23 @@ class OptionsMenu extends MusicBeatState
 					changeSelection(1);
 				}
 			}
-			
+
 			if (FlxG.keys.justPressed.UP)
 				changeSelection(-1);
 			if (FlxG.keys.justPressed.DOWN)
 				changeSelection(1);
-			
+
 			if (isCat)
 			{
 				if (currentSelectedCat.getOptions()[curSelected].getAccept())
 				{
 					if (FlxG.keys.pressed.SHIFT)
-						{
-							if (FlxG.keys.pressed.RIGHT)
-								currentSelectedCat.getOptions()[curSelected].right();
-							if (FlxG.keys.pressed.LEFT)
-								currentSelectedCat.getOptions()[curSelected].left();
-						}
+					{
+						if (FlxG.keys.pressed.RIGHT)
+							currentSelectedCat.getOptions()[curSelected].right();
+						if (FlxG.keys.pressed.LEFT)
+							currentSelectedCat.getOptions()[curSelected].left();
+					}
 					else
 					{
 						if (FlxG.keys.justPressed.RIGHT)
@@ -199,7 +198,7 @@ class OptionsMenu extends MusicBeatState
 						FlxG.save.data.offset += 0.1;
 					else if (FlxG.keys.pressed.LEFT)
 						FlxG.save.data.offset -= 0.1;
-					
+
 					versionShit.text = "Offset (Left, Right, Shift for slow): " + HelperFunctions.truncateFloat(FlxG.save.data.offset,2) + " - Description - " + currentDescription;
 				}
 				if (currentSelectedCat.getOptions()[curSelected].getAccept())
@@ -220,13 +219,13 @@ class OptionsMenu extends MusicBeatState
 					FlxG.save.data.offset += 0.1;
 				else if (FlxG.keys.pressed.LEFT)
 					FlxG.save.data.offset -= 0.1;
-				
+
 				versionShit.text = "Offset (Left, Right, Shift for slow): " + HelperFunctions.truncateFloat(FlxG.save.data.offset,2) + " - Description - " + currentDescription;
 			}
-		
+
 
 			if (controls.RESET)
-					FlxG.save.data.offset = 0;
+				FlxG.save.data.offset = 0;
 
 			if (controls.ACCEPT)
 			{
@@ -243,16 +242,16 @@ class OptionsMenu extends MusicBeatState
 					isCat = true;
 					grpControls.clear();
 					for (i in 0...currentSelectedCat.getOptions().length)
-						{
-							var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, currentSelectedCat.getOptions()[i].getDisplay(), true, false);
-							controlLabel.isMenuItem = true;
-							controlLabel.targetY = i;
-							grpControls.add(controlLabel);
-							// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
-						}
+					{
+						var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, currentSelectedCat.getOptions()[i].getDisplay(), true, false);
+						controlLabel.isMenuItem = true;
+						controlLabel.targetY = i;
+						grpControls.add(controlLabel);
+						// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
+					}
 					curSelected = 0;
 				}
-				
+
 				changeSelection();
 			}
 		}
@@ -263,10 +262,6 @@ class OptionsMenu extends MusicBeatState
 
 	function changeSelection(change:Int = 0)
 	{
-		#if !switch
-		// NGio.logEvent("Fresh");
-		#end
-		
 		FlxG.sound.play(Paths.sound("scrollMenu"), 0.4);
 
 		curSelected += change;
@@ -289,7 +284,6 @@ class OptionsMenu extends MusicBeatState
 		}
 		else
 			versionShit.text = "Offset (Left, Right, Shift for slow): " + HelperFunctions.truncateFloat(FlxG.save.data.offset,2) + " - Description - " + currentDescription;
-		// selector.y = (70 * curSelected) + 30;
 
 		var bullShit:Int = 0;
 

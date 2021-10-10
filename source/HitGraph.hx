@@ -95,7 +95,6 @@ class HitGraph extends Sprite
 
 		gfx.moveTo(0, _height / 2);
 		gfx.lineTo(_width, _height / 2);
-		
 	}
 
 	public static function createTextField(X:Float = 0, Y:Float = 0, Color:FlxColor = FlxColor.WHITE, Size:Int = 12):TextField
@@ -123,7 +122,6 @@ class HitGraph extends Sprite
 
 	function drawJudgementLine(ms:Float):Void
 	{
-
 		var gfx:Graphics = graphics;
 
 		gfx.lineStyle(1, graphColor, 0.3);
@@ -201,7 +199,7 @@ class HitGraph extends Sprite
 
 				if (ana.hit)
 					gfx.beginFill(0xFFFF00);
-				else 
+				else
 					gfx.beginFill(0xC2B280);
 
 				if (ana.hitTime < 0)
@@ -242,7 +240,6 @@ class HitGraph extends Sprite
 			gfx.endFill();
 		}
 
-
 		var bm = new BitmapData(_width,_height);
 		bm.draw(this);
 		bitmap = new Bitmap(bm);
@@ -252,10 +249,10 @@ class HitGraph extends Sprite
 	{
 		return (x / FlxG.sound.music.length) * width;
 	}
-	
+
 	public function addToHistory(diff:Float, judge:String, time:Float)
 	{
-		history.push([diff,judge, time]);
+		history.push([diff, judge, time]);
 	}
 
 	public function update():Void

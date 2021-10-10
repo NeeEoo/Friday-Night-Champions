@@ -3,11 +3,6 @@ package;
 import Song.SwagSong;
 import flixel.FlxG;
 
-/**
- * ...
- * @author
- */
-
 typedef BPMChangeEvent =
 {
 	var stepTime:Int;
@@ -29,10 +24,6 @@ class Conductor
 	public static var timeScale:Float = Conductor.safeZoneOffset / 166;
 
 	public static var bpmChangeMap:Array<BPMChangeEvent> = [];
-
-	public function new()
-	{
-	}
 
 	public static function recalculateTimings()
 	{

@@ -59,15 +59,8 @@ class MenuCharacter extends FlxSprite
 
 	public function setCharacter(character:String):Void
 	{
-		if (character == '')
-		{
-			visible = false;
-			return;
-		}
-		else
-		{
-			visible = true;
-		}
+		visible = character != '';
+		if (!visible) return;
 
 		animation.play(character);
 

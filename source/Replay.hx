@@ -60,7 +60,7 @@ class Replay
 	{
 		this.path = path;
 		replay = {
-			songName: "No Song Found", 
+			songName: "No Song Found",
 			songDiff: 1,
 			noteSpeed: 1.5,
 			isDownscroll: false,
@@ -74,7 +74,7 @@ class Replay
 	}
 
 	public static function LoadReplay(path:String):Replay
-    {
+	{
 		var rep:Replay = new Replay(path);
 
 		rep.LoadFromJSON();
@@ -100,7 +100,7 @@ class Replay
 		};
 
 		var data:String = Json.stringify(json);
-		
+
 		var time = Date.now().getTime();
 
 		#if sys
