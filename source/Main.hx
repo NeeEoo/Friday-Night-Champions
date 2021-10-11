@@ -1,13 +1,9 @@
 package;
 
-import openfl.display.BlendMode;
-import openfl.text.TextFormat;
-import openfl.display.Application;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxState;
-import openfl.Assets;
 import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
@@ -29,7 +25,6 @@ class Main extends Sprite
 
 	public static function main():Void
 	{
-
 		// quick checks
 
 		Lib.current.addChild(new Main());
@@ -48,8 +43,6 @@ class Main extends Sprite
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 	}
-
-	public static var webmHandler:WebmHandler;
 
 	private function init(?E:Event):Void
 	{
@@ -86,8 +79,9 @@ class Main extends Sprite
 		#if !mobile
 		fpsCounter = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsCounter);
+		#if !debug
 		toggleFPS(FlxG.save.data.fps);
-
+		#end
 		#end
 	}
 

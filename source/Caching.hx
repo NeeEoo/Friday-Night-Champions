@@ -63,7 +63,6 @@ class Caching extends MusicBeatState
 		super.update(elapsed);
 	}
 
-
 	function cache()
 	{
 		var images:Array<String> = [];

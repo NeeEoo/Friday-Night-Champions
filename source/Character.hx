@@ -1,8 +1,6 @@
 package;
 
-import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.animation.FlxBaseAnimation;
 import flixel.graphics.frames.FlxAtlasFrames;
 
 using StringTools;
@@ -136,6 +134,23 @@ class Character extends FlxSprite
 				addOffset("singRIGHT", 0, 27);
 				addOffset("singLEFT", -10, 10);
 				addOffset("singDOWN", 0, -30);
+
+				playAnim('idle');
+
+			case 'mickle':
+				tex = Paths.getSparrowAtlas('characters/Mickle', 'shared');
+				frames = tex;
+				animation.addByPrefix('idle', 'idle', 24);
+				animation.addByPrefix('singUP', 'up', 24);
+				animation.addByPrefix('singRIGHT', 'right', 24);
+				animation.addByPrefix('singDOWN', 'down', 24);
+				animation.addByPrefix('singLEFT', 'left', 24);
+
+				addOffset('idle');
+				addOffset("singDOWN", 0, -100);
+				addOffset("singRIGHT", 5, 1);
+				addOffset("singUP", 0, 40);
+				addOffset("singLEFT", 140, 0);
 
 				playAnim('idle');
 			case 'spooky':
@@ -539,7 +554,6 @@ class Character extends FlxSprite
 				dadVar = 6.1;
 			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
 			{
-				trace('dance');
 				dance();
 				holdTimer = 0;
 			}

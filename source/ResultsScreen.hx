@@ -1,28 +1,15 @@
 package;
 
-import openfl.geom.Matrix;
 import openfl.display.BitmapData;
 import flixel.system.FlxSound;
-import flixel.util.FlxAxes;
 import flixel.FlxSubState;
-import Options.Option;
-import flixel.input.FlxInput;
-import flixel.input.keyboard.FlxKey;
 import flixel.FlxG;
-import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.effects.FlxFlicker;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import lime.app.Application;
-import lime.utils.Assets;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
-import flixel.input.FlxKeyManager;
 
 using StringTools;
 
@@ -92,10 +79,10 @@ class ResultsScreen extends FlxSubState
 		anotherBackground.alpha = 0;
 		add(anotherBackground);
 
-		graph = new HitGraph(FlxG.width - 500,45,495,240);
+		graph = new HitGraph(FlxG.width - 500, 45, 495, 240);
 		graph.alpha = 0;
 
-		graphSprite = new OFLSprite(FlxG.width - 510,45,460,240,graph);
+		graphSprite = new OFLSprite(FlxG.width - 510, 45, 460, 240, graph);
 
 		graphSprite.scrollFactor.set();
 		graphSprite.alpha = 0;
@@ -112,7 +99,6 @@ class ResultsScreen extends FlxSubState
 			goods = 0;
 
 		var mean:Float = 0;
-
 
 		for (i in 0...PlayState.rep.replay.songNotes.length)
 		{

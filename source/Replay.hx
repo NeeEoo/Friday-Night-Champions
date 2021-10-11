@@ -1,15 +1,8 @@
 #if sys
 import sys.io.File;
 #end
-import Controls.Control;
 import flixel.FlxG;
-import openfl.events.IOErrorEvent;
-import openfl.events.Event;
-import openfl.net.FileReference;
-import lime.utils.Assets;
 import haxe.Json;
-import flixel.input.keyboard.FlxKey;
-import openfl.utils.Dictionary;
 
 class Ana
 {
@@ -42,7 +35,7 @@ typedef ReplayJSON =
 	public var timestamp:Date;
 	public var songName:String;
 	public var songDiff:Int;
-	public var songNotes:Array<Dynamic>;
+	public var songNotes:Array<Array<Dynamic>>;
 	public var songJudgements:Array<String>;
 	public var noteSpeed:Float;
 	public var isDownscroll:Bool;
@@ -84,7 +77,7 @@ class Replay
 		return rep;
 	}
 
-	public function SaveReplay(notearray:Array<Dynamic>, judge:Array<String>, ana:Analysis)
+	public function SaveReplay(notearray:Array<Array<Dynamic>>, judge:Array<String>, ana:Analysis)
 	{
 		var json = {
 			"songName": PlayState.SONG.song,

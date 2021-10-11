@@ -1,16 +1,12 @@
 package;
 
 import flixel.input.gamepad.FlxGamepad;
-import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import lime.utils.Assets;
-
 
 #if windows
 import Discord.DiscordClient;
@@ -33,7 +29,6 @@ class FreeplayState extends MusicBeatState
 	var combo:String = '';
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
-	private var curPlaying:Bool = false;
 
 	private var iconArray:Array<HealthIcon> = [];
 
@@ -170,13 +165,9 @@ class FreeplayState extends MusicBeatState
 		}
 
 		if (upP)
-		{
 			changeSelection(-1);
-		}
 		if (downP)
-		{
 			changeSelection(1);
-		}
 
 		if (FlxG.keys.justPressed.LEFT)
 			changeDiff(-1);

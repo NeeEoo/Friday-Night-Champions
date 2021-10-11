@@ -1,10 +1,7 @@
 package;
 
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.util.FlxTimer;
@@ -16,9 +13,6 @@ using StringTools;
  */
 class Alphabet extends FlxSpriteGroup
 {
-	public var delay:Float = 0.05;
-	public var paused:Bool = false;
-
 	// for menu shit
 	public var targetY:Float = 0;
 	public var isMenuItem:Bool = false;
@@ -27,8 +21,6 @@ class Alphabet extends FlxSpriteGroup
 
 	var _finalText:String = "";
 	var _curText:String = "";
-
-	public var widthOfWords:Float = FlxG.width;
 
 	var yMulti:Float = 1;
 
@@ -45,7 +37,7 @@ class Alphabet extends FlxSpriteGroup
 	var isBold:Bool = false;
 
 	var pastX:Float = 0;
-	var pastY:Float  = 0;
+	var pastY:Float = 0;
 
 	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false, shouldMove:Bool = false)
 	{

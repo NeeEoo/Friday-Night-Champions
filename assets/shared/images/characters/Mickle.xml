@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Mickle.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="down0000" x="1" y="1" width="434" height="678" frameX="0" frameY="-17" frameWidth="434" frameHeight="695"/>
+	<SubTexture name="down0001" x="438" y="1" width="434" height="695"/>
+	<SubTexture name="idle0000" x="875" y="1" width="434" height="796" frameX="0" frameY="0" frameWidth="434" frameHeight="797"/>
+	<SubTexture name="idle0001" x="1312" y="1" width="434" height="786" frameX="0" frameY="-11" frameWidth="434" frameHeight="797"/>
+	<SubTexture name="idle0002" x="1749" y="1" width="434" height="770" frameX="0" frameY="-27" frameWidth="434" frameHeight="797"/>
+	<SubTexture name="idle0003" x="2186" y="1" width="434" height="757" frameX="0" frameY="-39" frameWidth="434" frameHeight="797"/>
+	<SubTexture name="idle0004" x="2623" y="1" width="434" height="742" frameX="0" frameY="-55" frameWidth="434" frameHeight="797"/>
+	<SubTexture name="idle0005" x="2623" y="1" width="434" height="742" frameX="0" frameY="-55" frameWidth="434" frameHeight="797"/>
+	<SubTexture name="idle0006" x="3060" y="1" width="434" height="765" frameX="0" frameY="-31" frameWidth="434" frameHeight="797"/>
+	<SubTexture name="idle0007" x="3497" y="1" width="434" height="776" frameX="0" frameY="-20" frameWidth="434" frameHeight="797"/>
+	<SubTexture name="idle0008" x="1" y="800" width="434" height="789" frameX="0" frameY="-8" frameWidth="434" frameHeight="797"/>
+	<SubTexture name="idle0009" x="1" y="800" width="434" height="789" frameX="0" frameY="-8" frameWidth="434" frameHeight="797"/>
+	<SubTexture name="left0000" x="438" y="800" width="580" height="796"/>
+	<SubTexture name="left0001" x="1021" y="800" width="556" height="796" frameX="-24" frameY="0" frameWidth="580" frameHeight="796"/>
+	<SubTexture name="right0000" x="1580" y="800" width="541" height="796"/>
+	<SubTexture name="right0001" x="2124" y="800" width="521" height="796" frameX="-1" frameY="0" frameWidth="541" frameHeight="796"/>
+	<SubTexture name="up0000" x="2648" y="800" width="434" height="837"/>
+	<SubTexture name="up0001" x="3085" y="800" width="434" height="826" frameX="0" frameY="-11" frameWidth="434" frameHeight="837"/>
+</TextureAtlas>

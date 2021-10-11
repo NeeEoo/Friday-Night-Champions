@@ -13,7 +13,6 @@ class Highscore
 	public static var songCombos:Map<String, String> = new Map<String, String>();
 	#end
 
-
 	public static function saveScore(song:String, score:Int = 0, ?diff:Int = 0):Void
 	{
 		var daSong:String = formatSong(song, diff);
@@ -27,7 +26,9 @@ class Highscore
 			}
 			else
 				setScore(daSong, score);
-		}else trace('BotPlay detected. Score saving is disabled.');
+		}
+		else
+			trace('BotPlay detected. Score saving is disabled.');
 	}
 
 	public static function saveCombo(song:String, combo:String, ?diff:Int = 0):Void
@@ -60,7 +61,9 @@ class Highscore
 			}
 			else
 				setScore(daWeek, score);
-		}else trace('BotPlay detected. Score saving is disabled.');
+		}
+		else
+			trace('BotPlay detected. Score saving is disabled.');
 	}
 
 	/**
@@ -113,26 +116,29 @@ class Highscore
 
 	public static function getScore(song:String, diff:Int):Int
 	{
-		if (!songScores.exists(formatSong(song, diff)))
-			setScore(formatSong(song, diff), 0);
+		var daSong = formatSong(song, diff);
+		if (!songScores.exists(daSong))
+			setScore(daSong, 0);
 
-		return songScores.get(formatSong(song, diff));
+		return songScores.get(daSong);
 	}
 
 	public static function getCombo(song:String, diff:Int):String
 	{
-		if (!songCombos.exists(formatSong(song, diff)))
-			setCombo(formatSong(song, diff), '');
+		var daSong = formatSong(song, diff);
+		if (!songCombos.exists(daSong))
+			setCombo(daSong, '');
 
-		return songCombos.get(formatSong(song, diff));
+		return songCombos.get(daSong);
 	}
 
 	public static function getWeekScore(week:Int, diff:Int):Int
 	{
-		if (!songScores.exists(formatSong('week' + week, diff)))
-			setScore(formatSong('week' + week, diff), 0);
+		var daWeek = formatSong('week' + week, diff);
+		if (!songScores.exists(daWeek))
+			setScore(daWeek, 0);
 
-		return songScores.get(formatSong('week' + week, diff));
+		return songScores.get(daWeek);
 	}
 
 	public static function load():Void

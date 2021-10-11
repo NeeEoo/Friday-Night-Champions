@@ -6,8 +6,15 @@ class KadeEngineData
 {
 	public static function initSave()
 	{
-		if (FlxG.save.data.newInput == null)
-			FlxG.save.data.newInput = true;
+		// Haxeflixel Stuff
+
+		if (FlxG.save.data.windowSettings == null)
+		{
+			var maxWindows = 10; // arbitrary
+			FlxG.save.data.windowSettings = [for (_ in 0...maxWindows) true];
+		}
+
+		// Kade Engine Stuff
 
 		if (FlxG.save.data.downscroll == null)
 			FlxG.save.data.downscroll = false;
@@ -78,9 +85,6 @@ class KadeEngineData
 
 		if (FlxG.save.data.strumline == null)
 			FlxG.save.data.strumline = false;
-
-		if (FlxG.save.data.customStrumLine == null)
-			FlxG.save.data.customStrumLine = 0;
 
 		if (FlxG.save.data.camzoom == null)
 			FlxG.save.data.camzoom = true;

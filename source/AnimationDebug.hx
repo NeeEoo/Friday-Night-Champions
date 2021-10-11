@@ -149,6 +149,11 @@ class AnimationDebug extends FlxState
 			curAnim += 1;
 		}
 
+		if (FlxG.keys.justPressed.ESCAPE)
+		{
+			FlxG.switchState(new MainMenuState());
+		}
+
 		if (curAnim < 0)
 			curAnim = animList.length - 1;
 
