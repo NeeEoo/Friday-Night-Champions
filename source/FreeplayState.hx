@@ -196,6 +196,7 @@ class FreeplayState extends MusicBeatState
 
 			PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName);
 			PlayState.isStoryMode = false;
+			PlayState.loadRep = false;
 			PlayState.storyDifficulty = curDifficulty;
 			PlayState.storyWeek = songs[curSelected].week;
 			trace('CUR WEEK' + PlayState.storyWeek);
@@ -256,8 +257,6 @@ class FreeplayState extends MusicBeatState
 		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 		#end
 
-		var bullShit:Int = 0;
-
 		for (i in 0...iconArray.length)
 		{
 			iconArray[i].alpha = 0.6;
@@ -265,19 +264,17 @@ class FreeplayState extends MusicBeatState
 
 		iconArray[curSelected].alpha = 1;
 
+		var i:Int = 0;
+
 		for (item in grpSongs.members)
 		{
-			item.targetY = bullShit - curSelected;
-			bullShit++;
-
-			item.alpha = 0.6;
-			// item.setGraphicSize(Std.int(item.width * 0.8));
+			item.targetY = i - curSelected;
+			i++;
 
 			if (item.targetY == 0)
-			{
 				item.alpha = 1;
-				// item.setGraphicSize(Std.int(item.width));
-			}
+			else
+				item.alpha = 0.6;
 		}
 	}
 }

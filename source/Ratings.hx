@@ -6,7 +6,7 @@ class Ratings
 	{
 		if (accuracy == 0)
 			return "N/A";
-		else if(FlxG.save.data.botplay && !PlayState.loadRep)
+		else if(PlayStateChangeables.botPlay && !PlayState.loadRep)
 			return "BotPlay";
 
 		var ranking:String = "N/A";
@@ -104,7 +104,7 @@ class Ratings
 
 		// trace('Hit Info\nDifference: ' + noteDiff + '\nZone: ' + Conductor.safeZoneOffset * 1.5 + "\nTS: " + customTimeScale + "\nLate: " + 155 * customTimeScale);
 
-		if (FlxG.save.data.botplay && !PlayState.loadRep)
+		if (PlayStateChangeables.botPlay && !PlayState.loadRep)
 			return "sick"; // FUNNY
 
 		var rating = checkRating(noteDiff, customTimeScale);

@@ -8,6 +8,7 @@ using StringTools;
 class Note extends FlxSprite
 {
 	public var strumTime:Float = 0;
+	public var noteSpeed:Float = 0;
 
 	public var mustPress:Bool = false;
 	public var noteData:Int = 0;
@@ -15,16 +16,18 @@ class Note extends FlxSprite
 	public var canBeHit:Bool = false;
 	public var tooLate:Bool = false;
 	public var wasGoodHit:Bool = false;
-	public var prevNote:Note;
 	public var modifiedByLua:Bool = false;
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
+	public var missedHolding:Bool = false;
+	public var prevNote:Note;
+	public var holdNotes:Array<Note> = [];
 
 	public static var swagWidth:Float = 160 * 0.7;
 
 	public var rating:String = "shit";
 
-	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inCharter:Bool = false)
+	public function new(strumTime:Float, noteData:Int, noteSpeed:Null<Float>, ?prevNote:Note, ?sustainNote:Bool = false, ?inCharter:Bool = false)
 	{
 		super();
 
@@ -45,6 +48,10 @@ class Note extends FlxSprite
 		if (this.strumTime < 0)
 			this.strumTime = 0;
 
+		if (noteSpeed == null)
+			noteSpeed = PlayState.SONG.speed;
+
+		this.noteSpeed = noteSpeed;
 		this.noteData = noteData;
 
 		switch (PlayState.SONG.noteStyle)
@@ -75,7 +82,7 @@ class Note extends FlxSprite
 				setGraphicSize(Std.int(width * PlayState.daPixelZoom));
 				updateHitbox();
 			default:
-				frames = Paths.getSparrowAtlas('NOTE_assets');
+				frames = Paths.getSparrowAtlas('NOTE_assets', "shared");
 
 				if (isSustainNote)
 				{
@@ -166,7 +173,7 @@ class Note extends FlxSprite
 				if(FlxG.save.data.scrollSpeed != 1)
 					prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * FlxG.save.data.scrollSpeed;
 				else
-					prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * PlayState.SONG.speed;
+					prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * noteSpeed;
 				prevNote.updateHitbox();
 				// prevNote.setGraphicSize();
 			}

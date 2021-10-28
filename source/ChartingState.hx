@@ -638,7 +638,7 @@ class ChartingState extends MusicBeatState
 			for (p in 0...pressArray.length)
 			{
 				if (pressArray[p])
-					addNote(new Note(Conductor.songPosition,p));
+					addNote(new Note(Conductor.songPosition,p, null));
 			}
 		}
 

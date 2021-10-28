@@ -278,21 +278,17 @@ class OptionsMenu extends MusicBeatState
 		else
 			versionShit.text = "Offset (Left, Right, Shift for slow): " + HelperFunctions.truncateFloat(FlxG.save.data.offset,2) + " - Description - " + currentDescription;
 
-		var bullShit:Int = 0;
+		var i:Int = 0;
 
 		for (item in grpControls.members)
 		{
-			item.targetY = bullShit - curSelected;
-			bullShit++;
-
-			item.alpha = 0.6;
-			// item.setGraphicSize(Std.int(item.width * 0.8));
+			item.targetY = i - curSelected;
+			i++;
 
 			if (item.targetY == 0)
-			{
 				item.alpha = 1;
-				// item.setGraphicSize(Std.int(item.width));
-			}
+			else
+				item.alpha = 0.6;
 		}
 	}
 }

@@ -121,7 +121,6 @@ class ModchartState
 		return v;
 	}
 
-
 	private function convert(v: Any, type: String): Dynamic { // I didn't write this lol
 		if(Std.is(v, String) && type != null) {
 			var v: String = v;

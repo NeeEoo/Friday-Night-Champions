@@ -108,15 +108,15 @@ class ResultsScreen extends FlxSubState
 			// 3 = diff
 			var obj = PlayState.rep.replay.songNotes[i];
 			// judgement
-			var obj2 = PlayState.rep.replay.songJudgements[i];
+			//var obj2 = PlayState.rep.replay.songJudgements[i];
 
-			var obj3 = obj[0];
+			//var obj3 = obj[0];
 
 			var diff = obj[3];
-			var judge = obj2;
+			//var judge = obj2;
 			mean += diff;
-			if (obj[1] != -1)
-				graph.addToHistory(diff, judge, obj3);
+			//if (obj[1] != -1)
+			//	graph.addToHistory(diff, judge, obj3);
 		}
 
 		graph.update();

@@ -15,10 +15,9 @@ class Highscore
 
 	public static function saveScore(song:String, score:Int = 0, ?diff:Int = 0):Void
 	{
-		var daSong:String = formatSong(song, diff);
-
-		if(!FlxG.save.data.botplay)
+		if(!PlayStateChangeables.botPlay)
 		{
+			var daSong:String = formatSong(song, diff);
 			if (songScores.exists(daSong))
 			{
 				if (songScores.get(daSong) < score)
@@ -33,11 +32,10 @@ class Highscore
 
 	public static function saveCombo(song:String, combo:String, ?diff:Int = 0):Void
 	{
-		var daSong:String = formatSong(song, diff);
-		var finalCombo:String = combo.split(')')[0].replace('(', '');
-
-		if(!FlxG.save.data.botplay)
+		if(!PlayStateChangeables.botPlay)
 		{
+			var daSong:String = formatSong(song, diff);
+			var finalCombo:String = combo.split(')')[0].replace('(', '');
 			if (songCombos.exists(daSong))
 			{
 				if (getComboInt(songCombos.get(daSong)) < getComboInt(finalCombo))
@@ -50,7 +48,7 @@ class Highscore
 
 	public static function saveWeekScore(week:Int = 1, score:Int = 0, ?diff:Int = 0):Void
 	{
-		if(!FlxG.save.data.botplay)
+		if(!PlayStateChangeables.botPlay)
 		{
 			var daWeek:String = formatSong('week' + week, diff);
 
@@ -99,18 +97,13 @@ class Highscore
 
 	static function getComboInt(combo:String):Int
 	{
-		switch(combo)
+		return switch(combo)
 		{
-			case 'SDCB':
-				return 1;
-			case 'FC':
-				return 2;
-			case 'GFC':
-				return 3;
-			case 'MFC':
-				return 4;
-			default:
-				return 0;
+			case 'SDCB': 1;
+			case 'FC': 2;
+			case 'GFC': 3;
+			case 'MFC': 4;
+			default: 0;
 		}
 	}
 

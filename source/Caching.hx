@@ -17,6 +17,7 @@ class Caching extends MusicBeatState
 
 	override function create()
 	{
+		FlxG.fixedTimestep = false;
 		FlxG.mouse.visible = false;
 
 		FlxG.worldBounds.set(0,0);
@@ -106,6 +107,7 @@ class Caching extends MusicBeatState
 
 		trace("Finished caching...");
 
+		FlxG.fixedTimestep = true;
 		FlxG.switchState(new TitleState());
 	}
 

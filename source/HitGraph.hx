@@ -31,7 +31,7 @@ class HitGraph extends Sprite
 
 	public var graphColor:FlxColor;
 
-	public var history:Array<Dynamic> = [];
+	public var history:Array<Array<Dynamic>> = [];
 
 	public var bitmap:Bitmap;
 
@@ -208,31 +208,21 @@ class HitGraph extends Sprite
 			}
 		}
 
-		for (i in 0...history.length)
+		for (i in 0...PlayState.rep.replay.ana.anaArray.length)
 		{
-			var value = (history[i][0] - minValue) / range;
-			var judge = history[i][1];
+			var ana = PlayState.rep.replay.ana.anaArray[i];
+			var value = (ana.noteDiff - minValue) / range;
+			var judge = ana.hitJudge;
 
-			switch(judge)
-			{
-				case "sick":
-					gfx.beginFill(0x00FFFF);
-				case "good":
-					gfx.beginFill(0x00FF00);
-				case "bad":
-					gfx.beginFill(0xFF0000);
-				case "shit":
-					gfx.beginFill(0x8b0000);
-				case "miss":
-					gfx.beginFill(0x580000);
-				default:
-					gfx.beginFill(0xFFFFFF);
-			}
+			if (ana.hitTime < 0)
+				continue;
+
+			gfx.beginFill(getJudgeColor(judge));
 			var pointY = (-value * _height - 1) + _height;
 
 			/*if (i == 0)
 				gfx.moveTo(graphX, _axis.y + pointY);*/
-			gfx.drawRect(fitX(history[i][2]), pointY,4,4);
+			gfx.drawRect(fitX(ana.hitTime), pointY,4,4);
 
 			gfx.endFill();
 		}
@@ -240,6 +230,18 @@ class HitGraph extends Sprite
 		var bm = new BitmapData(_width,_height);
 		bm.draw(this);
 		bitmap = new Bitmap(bm);
+	}
+
+	public static function getJudgeColor(judge:String):Int {
+		return switch(judge)
+		{
+			case "sick": 0x00FFFF;
+			case "good": 0x00FF00;
+			case "bad":  0xFF0000;
+			case "shit": 0x8b0000;
+			case "miss": 0x580000;
+			default: 0xFFFFFF;
+		}
 	}
 
 	public function fitX(x:Float)
@@ -257,13 +259,13 @@ class HitGraph extends Sprite
 		drawGraph();
 	}
 
-	public function average():Float
+	/*public function average():Float
 	{
 		var sum:Float = 0;
 		for (value in history)
 			sum += value;
 		return sum / history.length;
-	}
+	}*/
 
 	public function destroy():Void
 	{

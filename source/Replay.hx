@@ -11,12 +11,14 @@ class Ana
 	public var hit:Bool;
 	public var hitJudge:String;
 	public var key:Int;
-	public function new(_hitTime:Float,_nearestNote:Array<Dynamic>,_hit:Bool,_hitJudge:String, _key:Int) {
+	public var noteDiff:Float;
+	public function new(_hitTime:Float, _nearestNote:Array<Dynamic>, _hit:Bool, _hitJudge:String, _key:Int, _noteDiff:Float) {
 		hitTime = _hitTime;
 		nearestNote = _nearestNote;
 		hit = _hit;
 		hitJudge = _hitJudge;
 		key = _key;
+		noteDiff = _noteDiff;
 	}
 }
 
@@ -35,6 +37,7 @@ typedef ReplayJSON =
 	public var timestamp:Date;
 	public var songName:String;
 	public var songDiff:Int;
+	public var weekNum:Int;
 	public var songNotes:Array<Array<Dynamic>>;
 	public var songJudgements:Array<String>;
 	public var noteSpeed:Float;
@@ -59,6 +62,7 @@ class Replay
 			isDownscroll: false,
 			songNotes: [],
 			replayGameVer: version,
+			weekNum: 0,
 			timestamp: Date.now(),
 			sf: Conductor.safeFrames,
 			ana: new Analysis(),
@@ -85,6 +89,7 @@ class Replay
 			"noteSpeed": (FlxG.save.data.scrollSpeed > 1 ? FlxG.save.data.scrollSpeed : PlayState.SONG.speed),
 			"isDownscroll": FlxG.save.data.downscroll,
 			"songNotes": notearray,
+			"weekNum": PlayState.storyWeek,
 			"songJudgements": judge,
 			"timestamp": Date.now(),
 			"replayGameVer": version,
