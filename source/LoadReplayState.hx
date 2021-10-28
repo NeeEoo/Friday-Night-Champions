@@ -33,7 +33,7 @@ class LoadReplayState extends MusicBeatState
 			var string:String = controlsStrings[i];
 			actualNames[i] = string;
 			var rep:Replay = Replay.LoadReplay(string);
-			controlsStrings[i] = string.split("time")[0] + " " + CoolUtil.difficultyFromInt(rep.replay.songDiff).toUpperCase();
+			controlsStrings[i] = string.split("time")[0] + " " + Difficulty.fromInt(rep.replay.songDiff).toUpperCase();
 		}
 
 		if (controlsStrings.length == 0)
@@ -94,14 +94,7 @@ class LoadReplayState extends MusicBeatState
 				PlayState.loadRep = true;
 				var song = PlayState.rep.replay.songName;
 				// adjusting the song name to be compatible
-				var songFormat = StringTools.replace(song, " ", "-");
-				switch (songFormat) {
-					case 'Dad-Battle': songFormat = 'Dadbattle';
-					case 'Philly-Nice': songFormat = 'Philly';
-					// Replay v1.0 support
-					case 'dad-battle': songFormat = 'Dadbattle';
-					case 'philly-nice': songFormat = 'Philly';
-				}
+				var songFormat = Song.fixSongname(song);
 
 				var poop:String = Highscore.formatSong(songFormat, PlayState.rep.replay.songDiff);
 

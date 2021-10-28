@@ -97,22 +97,32 @@ class Paths
 
 	inline static public function voices(song:String)
 	{
-		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
-		switch (songLowercase) {
-			case 'dad-battle': songLowercase = 'dadbattle';
-			case 'philly-nice': songLowercase = 'philly';
+		var songLowercase = Song.fixSongname(song);
+		if(PlayState.storyDifficulty == Difficulty.CHAMP) {
+			return voicesChamp(song);
 		}
 		return 'songs:assets/songs/${songLowercase}/Voices.$SOUND_EXT';
 	}
 
 	inline static public function inst(song:String)
 	{
-		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
-		switch (songLowercase) {
-			case 'dad-battle': songLowercase = 'dadbattle';
-			case 'philly-nice': songLowercase = 'philly';
+		var songLowercase = Song.fixSongname(song);
+		if(PlayState.storyDifficulty == Difficulty.CHAMP) {
+			return instChamp(song);
 		}
 		return 'songs:assets/songs/${songLowercase}/Inst.$SOUND_EXT';
+	}
+
+	inline static public function voicesChamp(song:String)
+	{
+		var songLowercase = Song.fixSongname(song);
+		return 'songs:assets/songs/${songLowercase}/VoicesChamp.$SOUND_EXT';
+	}
+
+	inline static public function instChamp(song:String)
+	{
+		var songLowercase = Song.fixSongname(song);
+		return 'songs:assets/songs/${songLowercase}/InstChamp.$SOUND_EXT';
 	}
 
 	inline static public function image(key:String, ?library:String)
@@ -123,6 +133,11 @@ class Paths
 	inline static public function font(key:String)
 	{
 		return 'assets/fonts/$key';
+	}
+
+	inline static public function exists(key:String, type:AssetType = TEXT)
+	{
+		return OpenFlAssets.exists(key, type);
 	}
 
 	inline static public function getSparrowAtlas(key:String, ?library:String)

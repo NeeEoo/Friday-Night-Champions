@@ -100,6 +100,11 @@ class Caching extends MusicBeatState
 		for (i in music)
 		{
 			FlxG.sound.cache(Paths.inst(i));
+			var iChamp = Paths.instChamp(i);
+			if(Paths.exists(iChamp, SOUND) || Paths.exists(iChamp, MUSIC)) {
+				FlxG.sound.cache(iChamp);
+				trace("champ cached " + i);
+			}
 			//FlxG.sound.cache(Paths.voices(i));
 			trace("cached " + i);
 			done++;

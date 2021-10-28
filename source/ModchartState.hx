@@ -186,7 +186,6 @@ class ModchartState
 		if(result == null) {
 			return null;
 		} else {
-
 			return convert(result, type);
 		}
 	}
@@ -244,11 +243,7 @@ class ModchartState
 	{
 		#if sys
 		// pre lowercasing the song name (makeAnimatedLuaSprite)
-		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
-		switch (songLowercase) {
-			case 'dad-battle': songLowercase = 'dadbattle';
-			case 'philly-nice': songLowercase = 'philly';
-		}
+		var songLowercase = Song.fixSongname(PlayState.SONG.song);
 
 		var data:BitmapData = BitmapData.fromFile(Sys.getCwd() + "assets/data/" + songLowercase + '/' + spritePath + ".png");
 
@@ -278,11 +273,7 @@ class ModchartState
 	{
 		#if sys
 		// pre lowercasing the song name (makeLuaSprite)
-		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
-		switch (songLowercase) {
-			case 'dad-battle': songLowercase = 'dadbattle';
-			case 'philly-nice': songLowercase = 'philly';
-		}
+		var songLowercase = Song.fixSongname(PlayState.SONG.song);
 
 		var data:BitmapData = BitmapData.fromFile(Sys.getCwd() + "assets/data/" + songLowercase + '/' + spritePath + ".png");
 
@@ -348,11 +339,7 @@ class ModchartState
 		//shaders = new Array<LuaShader>();
 
 		// pre lowercasing the song name (new)
-		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
-		switch (songLowercase) {
-			case 'dad-battle': songLowercase = 'dadbattle';
-			case 'philly-nice': songLowercase = 'philly';
-		}
+		var songLowercase = Song.fixSongname(PlayState.SONG.song);
 
 		var result = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart")); // execute le file
 

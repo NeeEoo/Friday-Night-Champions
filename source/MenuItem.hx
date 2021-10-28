@@ -21,7 +21,7 @@ class MenuItem extends FlxSpriteGroup
 
 	private var isFlashing:Bool = false;
 
-	public function startFlashing():Void
+	public inline function startFlashing():Void
 	{
 		isFlashing = true;
 	}

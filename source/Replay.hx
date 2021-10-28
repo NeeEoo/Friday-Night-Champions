@@ -83,6 +83,7 @@ class Replay
 
 	public function SaveReplay(notearray:Array<Array<Dynamic>>, judge:Array<String>, ana:Analysis)
 	{
+		#if sys
 		var json = {
 			"songName": PlayState.SONG.song,
 			"songDiff": PlayState.storyDifficulty,
@@ -101,7 +102,6 @@ class Replay
 
 		var time = Date.now().getTime();
 
-		#if sys
 		File.saveContent("assets/replays/replay-" + PlayState.SONG.song + "-time" + time + ".kadeReplay", data);
 
 		path = "replay-" + PlayState.SONG.song + "-time" + time + ".kadeReplay"; // for score screen shit
@@ -120,6 +120,17 @@ class Replay
 		{
 			var repl:ReplayJSON = cast Json.parse(File.getContent(Sys.getCwd() + "assets/replays/" + path));
 			replay = repl;
+
+			// Stupid fix. Kade, Classes dont work when parsed
+			var an:Array<Ana> = [];
+			var aaa:Dynamic = replay.ana;
+			var aaaa:Array<Dynamic> = aaa.anaArray;
+			for(li in aaaa) {
+				var ann = new Ana(li.hitTime, li.nearestNote, li.hit, li.hitJudge, li.key, li.noteDiff);
+				an.push(ann);
+			}
+			replay.ana = new Analysis();
+			replay.ana.anaArray = an;
 		}
 		catch(e)
 		{

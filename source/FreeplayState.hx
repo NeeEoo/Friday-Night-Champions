@@ -19,7 +19,7 @@ class FreeplayState extends MusicBeatState
 	var songs:Array<SongMetadata> = [];
 
 	var curSelected:Int = 0;
-	var curDifficulty:Int = 1;
+	var curDifficulty:Int = Difficulty.NORMAL;
 
 	var scoreText:FlxText;
 	var comboText:FlxText;
@@ -31,9 +31,12 @@ class FreeplayState extends MusicBeatState
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 
 	private var iconArray:Array<HealthIcon> = [];
+	private var crownArray:Array<CrownIcon> = [];
 
 	override function create()
 	{
+		PlayState.storyDifficulty = Difficulty.NORMAL;
+
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
 		for (i in 0...initSonglist.length)
@@ -59,17 +62,33 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true, false, true);
+			var info = songs[i];
+			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, info.songName, true, false, true);
 			songText.isMenuItem = true;
 			songText.targetY = i;
 			grpSongs.add(songText);
 
-			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
+			var icon:HealthIcon = new HealthIcon(info.songCharacter);
 			icon.sprTracker = songText;
 
 			// using a FlxGroup is too much fuss!
 			iconArray.push(icon);
 			add(icon);
+
+			var sfn = Song.fixSongname(info.songName);
+
+			var champPath = Paths.json(sfn + '/' + sfn + "-champ");
+
+			if(Paths.exists(champPath)) {
+				info.hasChamp = true;
+				var crown = new CrownIcon();
+				crown.sprTracker = icon;
+
+				crownArray.push(crown);
+				add(crown);
+			} else {
+				crownArray.push(null);
+			}
 
 			// songText.x += 40;
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
@@ -182,11 +201,7 @@ class FreeplayState extends MusicBeatState
 		if (accepted)
 		{
 			// adjusting the song name to be compatible
-			var songFormat = StringTools.replace(songs[curSelected].songName, " ", "-");
-			switch (songFormat) {
-				case 'Dad-Battle': songFormat = 'Dadbattle';
-				case 'Philly-Nice': songFormat = 'Philly';
-			}
+			var songFormat = Song.fixSongname(songs[curSelected].songName);
 
 			trace(songs[curSelected].songName);
 
@@ -204,28 +219,49 @@ class FreeplayState extends MusicBeatState
 		}
 	}
 
+	inline function hasChampDiff(info:SongMetadata) {
+		return info.hasChamp;
+	}
+
 	function changeDiff(change:Int = 0)
 	{
+		var oldInstName = Paths.inst(songs[curSelected].songName);
+		var limit = 2;
+		if(hasChampDiff(songs[curSelected]))
+			limit = 3;
+
+		if(limit == 2 && curDifficulty == Difficulty.CHAMP)
+			curDifficulty = Difficulty.HARD;
+
 		curDifficulty += change;
 
 		if (curDifficulty < 0)
-			curDifficulty = 2;
-		if (curDifficulty > 2)
+			curDifficulty = limit;
+		if (curDifficulty > limit)
 			curDifficulty = 0;
+
+		PlayState.storyDifficulty = curDifficulty;
 
 		#if !switch
 		// adjusting the highscore song name to be compatible (changeDiff)
-		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
-		switch (songHighscore) {
-			case 'Dad-Battle': songHighscore = 'Dadbattle';
-			case 'Philly-Nice': songHighscore = 'Philly';
-		}
-
+		var songHighscore = Song.fixSongname(songs[curSelected].songName);
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
 		#end
 
-		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
+		diffText.text = Difficulty.fromInt(curDifficulty).toUpperCase();
+
+		#if PRELOAD_ALL
+		if(limit == 3 && change != 0) {
+			var newInstName = Paths.inst(songs[curSelected].songName);
+			if(oldInstName != newInstName) {
+				var volume = FlxG.sound.music.volume;
+				var oldTime = FlxG.sound.music.time;
+				FlxG.sound.playMusic(newInstName, volume);
+				FlxG.sound.music.time = oldTime;
+			}
+		}
+		#end
 	}
 
 	function changeSelection(change:Int = 0)
@@ -239,15 +275,12 @@ class FreeplayState extends MusicBeatState
 		if (curSelected >= songs.length)
 			curSelected = 0;
 
+		changeDiff();
+
 		// adjusting the highscore song name to be compatible (changeSelection)
 		// would read original scores if we didn't change packages
-		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
-		switch (songHighscore) {
-			case 'Dad-Battle': songHighscore = 'Dadbattle';
-			case 'Philly-Nice': songHighscore = 'Philly';
-		}
-
 		#if !switch
+		var songHighscore = Song.fixSongname(songs[curSelected].songName);
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
 		// lerpScore = 0;
@@ -263,6 +296,16 @@ class FreeplayState extends MusicBeatState
 		}
 
 		iconArray[curSelected].alpha = 1;
+
+		var crown:CrownIcon;
+		for (i in 0...crownArray.length)
+		{
+			crown = crownArray[i];
+			if(crown != null) crown.alpha = 0.6;
+		}
+
+		crown = crownArray[curSelected];
+		if(crown != null) crown.alpha = 1;
 
 		var i:Int = 0;
 
@@ -284,6 +327,7 @@ class SongMetadata
 	public var songName:String = "";
 	public var week:Int = 0;
 	public var songCharacter:String = "";
+	public var hasChamp:Bool = false;
 
 	public function new(song:String, week:Int, songCharacter:String)
 	{

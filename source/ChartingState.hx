@@ -1221,7 +1221,8 @@ class ChartingState extends MusicBeatState
 
 	function loadJson(song:String):Void
 	{
-		PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
+		var sn = Song.fixSongname(song);
+		PlayState.SONG = Song.loadFromJson(sn, sn);
 		LoadingState.loadAndSwitchState(new ChartingState());
 	}
 
@@ -1251,7 +1252,8 @@ class ChartingState extends MusicBeatState
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
 			_file.addEventListener(Event.CANCEL, onSaveCancel);
 			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-			_file.save(data.trim(), _song.song.toLowerCase() + ".json");
+			var filename = Song.fixSongname(_song.song);
+			_file.save(data.trim(), filename + Difficulty.difficultyEnding[PlayState.storyDifficulty] + ".json");
 		}
 	}
 

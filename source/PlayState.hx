@@ -198,11 +198,7 @@ class PlayState extends MusicBeatState
 		PlayStateChangeables.Optimize = FlxG.save.data.optimize;
 
 		// pre lowercasing the song name (create)
-		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
-		switch (songLowercase) {
-			case 'dad-battle': songLowercase = 'dadbattle';
-			case 'philly-nice': songLowercase = 'philly';
-		}
+		var songLowercase = Song.fixSongname(PlayState.SONG.song);
 
 		#if windows
 		executeModchart = FileSystem.exists(Paths.lua(songLowercase  + "/modchart"));
@@ -217,7 +213,7 @@ class PlayState extends MusicBeatState
 
 		#if windows
 		// Making difficulty text for Discord Rich Presence.
-		storyDifficultyText = CoolUtil.difficultyFromInt(storyDifficulty);
+		storyDifficultyText = Difficulty.fromInt(storyDifficulty);
 
 		iconRPC = SONG.player2;
 
@@ -822,7 +818,7 @@ class PlayState extends MusicBeatState
 		add(healthBar);
 
 		// Add Kade Engine watermark
-		kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " - " + CoolUtil.difficultyFromInt(storyDifficulty) + (Main.watermarks ? " | KE " + MainMenuState.kadeEngineVer : ""), 16);
+		kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " - " + Difficulty.fromInt(storyDifficulty) + (Main.watermarks ? " | KE " + MainMenuState.kadeEngineVer : ""), 16);
 		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 		kadeEngineWatermark.scrollFactor.set();
 		add(kadeEngineWatermark);
@@ -879,7 +875,7 @@ class PlayState extends MusicBeatState
 
 		if (isStoryMode)
 		{
-			switch (StringTools.replace(curSong," ", "-").toLowerCase())
+			switch (Song.fixSongname(curSong))
 			{
 				case "winter-horrorland":
 					var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
@@ -948,7 +944,7 @@ class PlayState extends MusicBeatState
 		senpaiEvil.updateHitbox();
 		senpaiEvil.screenCenter();
 
-		var sn = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
+		var sn = Song.fixSongname(PlayState.SONG.song);
 
 		if (sn == 'roses' || sn == 'thorns')
 		{
@@ -1032,13 +1028,9 @@ class PlayState extends MusicBeatState
 
 		#if windows
 		// pre lowercasing the song name (startCountdown)
-		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
-		switch (songLowercase) {
-			case 'dad-battle': songLowercase = 'dadbattle';
-			case 'philly-nice': songLowercase = 'philly';
-		}
 		if (executeModchart)
 		{
+			var songLowercase = Song.fixSongname(PlayState.SONG.song);
 			luaModchart = ModchartState.createModchartState();
 			luaModchart.executeState('start', [songLowercase]);
 		}
@@ -1243,11 +1235,7 @@ class PlayState extends MusicBeatState
 		// Per song offset check
 		#if windows
 		// pre lowercasing the song name (generateSong)
-		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
-		switch (songLowercase) {
-			case 'dad-battle': songLowercase = 'dadbattle';
-			case 'philly-nice': songLowercase = 'philly';
-		}
+		var songLowercase = Song.fixSongname(PlayState.SONG.song);
 
 		var songPath = 'assets/data/' + songLowercase + '/';
 
@@ -2275,11 +2263,7 @@ class PlayState extends MusicBeatState
 			#if !switch
 			// adjusting the highscore song name to be compatible
 			// would read original scores if we didn't change packages
-			var songHighscore = StringTools.replace(PlayState.SONG.song, " ", "-");
-			switch (songHighscore) {
-				case 'Dad-Battle': songHighscore = 'Dadbattle';
-				case 'Philly-Nice': songHighscore = 'Philly';
-			}
+			var songHighscore = Song.fixSongname(PlayState.SONG.song);
 
 			Highscore.saveScore(songHighscore, Math.round(songScore), storyDifficulty);
 			Highscore.saveCombo(songHighscore, Ratings.GenerateLetterRank(accuracy), storyDifficulty);
@@ -2323,18 +2307,14 @@ class PlayState extends MusicBeatState
 			else
 			{
 				// adjusting the song name to be compatible
-				var songFormat = StringTools.replace(PlayState.storyPlaylist[0], " ", "-");
-				switch (songFormat) {
-					case 'Dad-Battle': songFormat = 'Dadbattle';
-					case 'Philly-Nice': songFormat = 'Philly';
-				}
+				var songFormat = Song.fixSongname(PlayState.storyPlaylist[0]);
 
 				var poop:String = Highscore.formatSong(songFormat, storyDifficulty);
 
 				trace('LOADING NEXT SONG');
 				trace(poop);
 
-				if (StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase() == 'eggnog')
+				if (Song.fixSongname(PlayState.storyPlaylist[0]) == 'eggnog')
 				{
 					var blackShit:FlxSprite = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 						-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);

@@ -28,11 +28,7 @@ class Song
 		trace(jsonInput);
 
 		// pre lowercasing the folder name
-		var folderLowercase = StringTools.replace(folder, " ", "-").toLowerCase();
-		switch (folderLowercase) {
-			case 'dad-battle': folderLowercase = 'dadbattle';
-			case 'philly-nice': folderLowercase = 'philly';
-		}
+		var folderLowercase = Song.fixSongname(folder);
 
 		trace('loading ' + folderLowercase + '/' + jsonInput.toLowerCase());
 
@@ -52,5 +48,14 @@ class Song
 		var swagShit:SwagSong = cast Json.parse(rawJson).song;
 		swagShit.validScore = true;
 		return swagShit;
+	}
+
+	public inline static function fixSongname(songName:String) {
+		var sn = StringTools.replace(songName, " ", "-").toLowerCase();
+		switch (sn) {
+			case 'dad-battle': sn = 'dadbattle';
+			case 'philly-nice': sn = 'philly';
+		}
+		return sn;
 	}
 }

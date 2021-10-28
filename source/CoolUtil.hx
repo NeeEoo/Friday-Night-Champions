@@ -6,13 +6,6 @@ using StringTools;
 
 class CoolUtil
 {
-	public static var difficultyArray:Array<String> = ["Easy", "Normal", "Hard"];
-
-	public static function difficultyFromInt(difficulty:Int):String
-	{
-		return difficultyArray[difficulty];
-	}
-
 	public static function coolTextFile(path:String):Array<String>
 	{
 		var daList:Array<String> = Assets.getText(path).trim().split('\n');
@@ -37,7 +30,7 @@ class CoolUtil
 		return daList;
 	}
 
-	public static function numberArray(max:Int, ?min = 0):Array<Int>
+	public static function numberArray(max:Int, ?min:Int = 0):Array<Int>
 	{
 		var dumbArray:Array<Int> = [];
 		for (i in min...max)

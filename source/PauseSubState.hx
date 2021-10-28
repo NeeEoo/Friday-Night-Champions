@@ -54,7 +54,7 @@ class PauseSubState extends MusicBeatSubstate
 		add(levelInfo);
 
 		var levelDifficulty:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
-		levelDifficulty.text += CoolUtil.difficultyFromInt(PlayState.storyDifficulty).toUpperCase();
+		levelDifficulty.text += Difficulty.fromInt(PlayState.storyDifficulty).toUpperCase();
 		levelDifficulty.scrollFactor.set();
 		levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
 		levelDifficulty.updateHitbox();
@@ -135,12 +135,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		if(accepted && oldOffset != PlayState.songOffset) {
 			// pre lowercasing the song name (update)
-			var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
-			switch (songLowercase) {
-				case 'dad-battle': songLowercase = 'dadbattle';
-				case 'philly-nice': songLowercase = 'philly';
-			}
-			var songPath = 'assets/data/' + songLowercase + '/';
+			var songPath = 'assets/data/' + Song.fixSongname(PlayState.SONG.song) + '/';
 			trace('Changing Offset from $oldOffset to ${PlayState.songOffset}');
 			sys.FileSystem.rename(songPath + oldOffset + '.offset', songPath + PlayState.songOffset + '.offset');
 		}
